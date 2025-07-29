@@ -88,8 +88,8 @@
       flex-direction: column;
       align-items: center;
       padding: calc(var(--sizing-unit) * 20) calc(var(--sizing-unit) * 6);
-      background-color: oklch(22.5% .006 244.69);
-      color: oklch(0.65 0 0);
+      background-color: darkslategrey;
+      color: lightblue;
       font-family: monospace;
       font-size: large;
     }
@@ -97,13 +97,13 @@
     main {
       display: flex;
       flex-direction: column;
-      gap: calc(var(--sizing-unit) * 5);
-      max-width: calc(var(--sizing-unit) * 180);
+      gap: calc(var(--sizing-unit) * 4);
+      max-width: calc(var(--sizing-unit) * 190);
       
       @media screen and (min-width: 820px) {
         display: grid;
-        grid-template-columns: calc(var(--sizing-unit) * 35) 1fr;
-        gap: calc(var(--sizing-unit) * 4) calc(var(--sizing-unit) * 5);
+        grid-template-columns: calc(var(--sizing-unit) * 45) 1fr;
+        gap: calc(var(--sizing-unit) * 6) calc(var(--sizing-unit) * 8);
         grid-template-areas:
           ". avatar-and-name"
           "section-titles-about about"
@@ -127,8 +127,13 @@
     }
 
     .section-title {
-      font-size: 1rem;
+      font-size: 1.25rem;
       color: white;
+      margin-top: 20px;
+
+      @media screen and (min-width: 820px) {
+        margin-top: 0;
+      }
     }
 
     .section-title::before,
@@ -159,6 +164,9 @@
 
     #technology {
       grid-area: technology;
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--sizing-unit) * 2);
     }
 
     #section-titles-experience {
@@ -181,6 +189,11 @@
       color: white;
     }
 
+    .technology-icon {
+      height: calc(var(--sizing-unit) * 14);
+      width: calc(var(--sizing-unit) * 14);
+    }
+
     @media screen and (max-width: 820px) {
       .sr-only-mobile {
         position: absolute;
@@ -196,6 +209,7 @@
     }
   </style>
   <body>
+    <!-- TODO: Light and dark mode? -->
     <main>
       <section id="avatar-and-name">
         <img
@@ -234,21 +248,42 @@
         <code>technology</code>
       </h2>
       <section id="technology">
-        <p>Technology</p>
+        <!-- TODO: Add a toggle to toggle between text and icons -->
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/JavaScript.svg" alt="JavaScript logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/TypeScript.svg" alt="TypeScript logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/React.svg" alt="React logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/HTML5.svg" alt="HTML5 logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/CSS3.svg" alt="CSS3 logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Git.svg" alt="Git logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Next.js.svg" alt="Next.js logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Astro.svg" alt="Astro logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/GraphQL.svg" alt="GraphQL logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Node.js.svg" alt="Node.js logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Rust.svg" alt="Rust logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/PHP.svg" alt="PHP logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Python.svg" alt="Python logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/Figma.svg" alt="Figma logo" />
+        
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/LinkedIn.svg" alt="LinkedIn logo" />
+        <img class="technology-icon" src="https://moistcode.github.io/assets/icons/GitHub.svg" alt="GitHub logo" />
       </section>
 
       <h2 id="section-titles-experience" class="section-title">
         <code>experience</code>
       </h2>
       <section id="experience">
-        <p>Experience</p>
+        <p>
+          I work, I live, I learn, I laugh, I cry, and I'm human. I forgot to add something here.
+        </p>
       </section>
 
       <h2 id="section-titles-contact" class="section-title">
         <code>contact</code>
       </h2>
       <section id="contact">
-        <p>Contact</p>
+        <p>
+          I work, I live, I learn, I laugh, I cry, and I'm human. I forgot to add something here.
+        </p>
       </section>
     </main>
   </body>
