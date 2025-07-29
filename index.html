@@ -3,10 +3,75 @@
   <head>
     <title>Tommy Long Huu Pham</title>
   </head>
+  <style>
+    *,::after,::before{box-sizing:border-box}*{margin:0}@media (prefers-reduced-motion:no-preference){html{interpolate-size:allow-keywords}}body{line-height:1.5;-webkit-font-smoothing:antialiased}canvas,img,picture,svg,video{display:block;max-width:100%}button,input,select,textarea{font:inherit}h1,h2,h3,h4,h5,h6,p{overflow-wrap:break-word}p{text-wrap:pretty}h1,h2,h3,h4,h5,h6{text-wrap:balance}#__next,#root{isolation:isolate}
+  </style>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px;
+      background-color: oklch(22.5% .006 244.69);
+      color: oklch(0.65 0 0);
+      font-family: monospace;
+    }
+
+    p {
+      font-size: large;
+    }
+
+    main {
+      max-width: 640px;
+    }
+
+    #avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid gray;
+      margin-bottom: 16px;
+    }
+
+    #about {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .emphasize-text {
+      color: white;
+    }
+  </style>
   <body>
-    <h1>Tommy Long Huu Pham</h1>
-    <h2>Welcome to my personal webpage!</h2>
-    <p>This is a simple HTML page created as an example.</p>
-    <p>Feel free to explore and learn more about me.</p>
+    <main>
+      <img
+        id="avatar"
+        src="https://picsum.photos/400/400"
+        alt="Cartoon avatar of Tommy Pham, the owner of this website"
+      />
+      <h1 class="emphasize-text">Tommy Pham</h1>
+      <section id="about">
+        <p>
+          Greetings! I'm a <span class="emphasize-text">front-end software engineer</span>
+          passionate about building seamless, user-focused web experiences based out of
+          <span class="emphasize-text">Muskegon, Michigan</span>.
+        </p>
+        <p>
+          I'm currently at <span class="emphasize-text">Hungryroot</span>,
+          crafting intuitive digital products with wonderful teammates. I'm
+          <span class="emphasize-text">always up for new challenges</span> and
+          excited to keep learning and growing as there's always something new
+          to discover in this ever-evolving field.
+        </p>
+        <p>
+          When I'm not shipping solutions, I'm probably hanging out with my
+          lovely wife and our two dogs, playing video games, or bumming around
+          at Lake Michigan. Come hang out!
+        </p>
+      </section>
+    </main>
   </body>
 </html>
