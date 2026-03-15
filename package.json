@@ -8,6 +8,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^6.0.4"
+    "astro": "^6.0.4",
+    "rehype-mermaid": "^3.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.58.2"
   }
 }
