@@ -5,7 +5,10 @@ export default defineConfig({
   site: 'https://moistcode.github.io',
   output: 'static',
   markdown: {
-    syntaxHighlight: 'shiki',
+    syntaxHighlight: {
+      type: 'shiki',
+      excludeLangs: ['mermaid'],
+    },
     rehypePlugins: [
       [
         rehypeMermaid,
