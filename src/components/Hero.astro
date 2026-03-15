@@ -1,0 +1,64 @@
+---
+---
+
+<section class="hero">
+  <div class="hero-top">
+    <img class="hero-avatar" src="/images/avatar.png" alt="Tommy Pham avatar" width="72" height="72">
+    <div>
+      <h1>Tommy Pham</h1>
+      <div class="subtitle">Senior Software Engineer @ Hungryroot</div>
+    </div>
+  </div>
+  <p class="bio">
+    Building seamless, user-focused web experiences from Muskegon, Michigan.
+    I write about frontend architecture, developer tooling, and lessons learned along the way.
+  </p>
+</section>
+
+<style>
+  .hero {
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.08);
+  }
+  .hero-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+  .hero-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-family: var(--font-mono);
+  }
+  .subtitle {
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 2px;
+    font-family: var(--font-mono);
+  }
+  .bio {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 560px;
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 28px 16px 20px; }
+    .hero-avatar { display: none; }
+    h1 { font-size: 22px; }
+    .subtitle { font-size: 12px; }
+    .bio { font-size: 12px; margin-top: 12px; }
+  }
+</style>

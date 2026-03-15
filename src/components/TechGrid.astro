@@ -1,0 +1,166 @@
+---
+const techs = [
+  { name: 'JavaScript', icon: '/icons/JavaScript.svg' },
+  { name: 'TypeScript', icon: '/icons/TypeScript.svg' },
+  { name: 'React', icon: '/icons/React.svg' },
+  { name: 'HTML5', icon: '/icons/HTML5.svg' },
+  { name: 'CSS3', icon: '/icons/CSS3.svg' },
+  { name: 'Git', icon: '/icons/Git.svg' },
+  { name: 'Next.js', icon: '/icons/Next.js.svg' },
+  { name: 'Astro', icon: '/icons/Astro.svg' },
+  { name: 'GraphQL', icon: '/icons/GraphQL.svg' },
+  { name: 'Node.js', icon: '/icons/Node.js.svg' },
+  { name: 'Rust', icon: '/icons/Rust.svg' },
+  { name: 'PHP', icon: '/icons/PHP.svg' },
+  { name: 'Python', icon: '/icons/Python.svg' },
+  { name: 'Figma', icon: '/icons/Figma.svg' },
+];
+---
+
+<div class="tech-header">
+  <div class="label"><span class="slash">//</span> tech stack</div>
+  <div class="toggle-container">
+    <span class="toggle-label active" id="icons-label">Icons</span>
+    <div class="toggle-switch" id="tech-toggle">
+      <div class="toggle-slider"></div>
+    </div>
+    <span class="toggle-label" id="text-label">Text</span>
+  </div>
+</div>
+
+<div class="tech-icons" id="tech-icons">
+  {techs.map((tech) => (
+    <div class="tech-icon-item">
+      <img src={tech.icon} alt={tech.name} width="28" height="28">
+    </div>
+  ))}
+</div>
+
+<div class="tech-text" id="tech-text">
+  {techs.map((tech) => (
+    <span class="tech-pill">{tech.name}</span>
+  ))}
+</div>
+
+<script>
+  function initTechToggle() {
+    const toggle = document.getElementById('tech-toggle');
+    const icons = document.getElementById('tech-icons');
+    const text = document.getElementById('tech-text');
+    const iconsLabel = document.getElementById('icons-label');
+    const textLabel = document.getElementById('text-label');
+
+    if (!toggle || !icons || !text || !iconsLabel || !textLabel) return;
+
+    const saved = localStorage.getItem('technologyViewPreference');
+    if (saved === 'text') {
+      toggle.classList.add('on');
+      icons.classList.add('hidden');
+      text.classList.add('visible');
+      iconsLabel.classList.remove('active');
+      textLabel.classList.add('active');
+    }
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('on');
+      icons.classList.toggle('hidden');
+      text.classList.toggle('visible');
+      iconsLabel.classList.toggle('active');
+      textLabel.classList.toggle('active');
+      const isText = toggle.classList.contains('on');
+      localStorage.setItem('technologyViewPreference', isText ? 'text' : 'icons');
+    });
+  }
+
+  initTechToggle();
+</script>
+
+<style>
+  .tech-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .label {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+  }
+  .slash { color: var(--accent); }
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .toggle-label {
+    font-size: 10px;
+    color: var(--text-subtle);
+    font-family: var(--font-mono);
+  }
+  .toggle-label.active { color: var(--text-primary); }
+  .toggle-switch {
+    width: 36px;
+    height: 18px;
+    background: #334155;
+    border-radius: 9px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .toggle-switch.on { background: var(--accent); }
+  .toggle-slider {
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+  }
+  .toggle-switch.on .toggle-slider { transform: translateX(18px); }
+
+  .tech-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-icon-item {
+    width: 48px;
+    height: 48px;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.15);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .tech-icon-item:hover { background: rgba(34, 211, 238, 0.15); }
+  .tech-icon-item img { width: 28px; height: 28px; }
+
+  .tech-text {
+    display: none;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tech-text.visible { display: flex; }
+  .tech-icons.hidden { display: none; }
+  .tech-pill {
+    font-size: 11px;
+    color: var(--text-primary);
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.15);
+    border-radius: 4px;
+    padding: 5px 12px;
+    font-family: var(--font-mono);
+    transition: background 0.2s;
+  }
+  .tech-pill:hover { background: rgba(34, 211, 238, 0.15); }
+
+  @media (max-width: 640px) {
+    .tech-icon-item { width: 42px; height: 42px; }
+    .tech-icon-item img { width: 24px; height: 24px; }
+  }
+</style>

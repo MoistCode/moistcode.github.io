@@ -1,0 +1,108 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  slug: string;
+  readingTime?: string;
+}
+
+const { title, description, date, tags, slug, readingTime } = Astro.props;
+
+const personalTags = ['personal', 'career', 'life'];
+const formattedDate = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+---
+
+<a href={`/blog/${slug}`} class="post-card">
+  <div class="post-date-top">
+    {formattedDate}{readingTime && ` · ${readingTime}`}
+  </div>
+  <div class="post-row">
+    <div>
+      <div class="post-title">{title}</div>
+      <div class="post-excerpt">{description}</div>
+    </div>
+    <div class="post-date-side">{formattedDate}</div>
+  </div>
+  <div class="post-tags">
+    {tags.map((tag) => (
+      <span class:list={['tag', personalTags.includes(tag) ? 'tag-personal' : 'tag-tech']}>
+        {tag}
+      </span>
+    ))}
+  </div>
+</a>
+
+<style>
+  .post-card {
+    display: block;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: var(--font-mono);
+  }
+  .post-card:hover {
+    border-color: var(--card-hover-border);
+    background: var(--card-hover-bg);
+  }
+  .post-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+  .post-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+  .post-excerpt {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .post-date-side {
+    font-size: 11px;
+    color: var(--text-subtle);
+    white-space: nowrap;
+    margin-left: 16px;
+  }
+  .post-date-top {
+    display: none;
+    font-size: 11px;
+    color: var(--text-subtle);
+    margin-bottom: 6px;
+  }
+  .post-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-size: 10px;
+    border-radius: 3px;
+    padding: 2px 8px;
+  }
+  .tag-tech {
+    color: var(--accent);
+    background: rgba(34, 211, 238, 0.1);
+  }
+  .tag-personal {
+    color: var(--tag-personal);
+    background: rgba(167, 139, 250, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .post-row { flex-direction: column; }
+    .post-date-side { display: none; }
+    .post-date-top { display: block; }
+    .post-title { font-size: 13px; }
+    .post-excerpt { font-size: 11px; }
+    .tag { font-size: 9px; padding: 2px 6px; }
+  }
+</style>

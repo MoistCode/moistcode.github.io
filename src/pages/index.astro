@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import PostCard from '../components/PostCard.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import TechGrid from '../components/TechGrid.astro';
+import { getReadingTime } from '../utils/reading-time';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<Base title="Tommy Pham - Software Engineer" description="Software engineer building seamless, user-focused web experiences.">
+  <Hero />
+
+  <section class="section">
+    <div class="section-header">
+      <div class="label"><span class="slash">//</span> latest posts</div>
+      <a href="/blog" class="view-all">view all →</a>
+    </div>
+    {posts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        tags={post.data.tags}
+        slug={post.slug}
+        readingTime={getReadingTime(post.body ?? '')}
+      />
+    ))}
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="label"><span class="slash">//</span> experience</div>
+    </div>
+    <div class="exp-grid">
+      <ExperienceCard
+        logo="/icons/Hungryroot.svg"
+        logoAlt="Hungryroot logo"
+        companyUrl="https://hungryroot.com"
+        role="Senior Software Engineer"
+        dates="September 2024 - Present"
+      />
+      <ExperienceCard
+        logo="/icons/SmugMug.svg"
+        logoAlt="SmugMug logo"
+        companyUrl="https://www.smugmug.com/"
+        role="Senior Software Engineer"
+        dates="November 2019 - September 2024"
+      />
+      <ExperienceCard
+        logo="/images/convertly-logo.png"
+        logoAlt="Convertly logo"
+        companyUrl="https://business.convertly.com/"
+        role="Junior Web Developer"
+        dates="February 2018 - November 2019"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <TechGrid />
+  </section>
+</Base>
+
+<style>
+  .section {
+    padding: 24px;
+    border-top: 1px solid rgba(34, 211, 238, 0.08);
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-family: var(--font-mono);
+  }
+  .label { color: var(--text-primary); }
+  .slash { color: var(--accent); }
+  .view-all {
+    font-size: 11px;
+    color: var(--text-subtle);
+    font-family: var(--font-mono);
+    transition: color 0.2s;
+  }
+  .view-all:hover { color: var(--text-muted); }
+  .exp-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .section { padding: 20px 16px; }
+    .exp-grid { flex-direction: column; gap: 8px; }
+  }
+</style>
