@@ -1,0 +1,220 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  readingTime: string;
+  prevPost?: { title: string; slug: string };
+  nextPost?: { title: string; slug: string };
+}
+
+const { title, description, date, tags, readingTime, prevPost, nextPost } = Astro.props;
+
+const personalTags = ['personal', 'career', 'life'];
+const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Base title={`${title} — Tommy Pham`} description={description}>
+  <article class="content">
+    <div class="article-header">
+      <a href="/blog" class="article-back">← back to blog</a>
+      <h1 class="article-title">{title}</h1>
+      <div class="article-meta">
+        <span>{formattedDate}</span>
+        <span>·</span>
+        <span>{readingTime}</span>
+      </div>
+      <div class="article-tags">
+        {tags.map((tag) => (
+          <span class:list={['tag', personalTags.includes(tag) ? 'tag-personal' : 'tag-tech']}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="article-body">
+      <slot />
+    </div>
+
+    {(prevPost || nextPost) && (
+      <nav class="article-nav">
+        {prevPost ? (
+          <a href={`/blog/${prevPost.slug}`} class="article-nav-link">
+            <span class="nav-label">← Previous</span>
+            <span class="nav-title">{prevPost.title}</span>
+          </a>
+        ) : <div />}
+        {nextPost ? (
+          <a href={`/blog/${nextPost.slug}`} class="article-nav-link next">
+            <span class="nav-label">Next →</span>
+            <span class="nav-title">{nextPost.title}</span>
+          </a>
+        ) : <div />}
+      </nav>
+    )}
+  </article>
+</Base>
+
+<style>
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .article-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+  }
+  .article-back {
+    font-size: 12px;
+    color: var(--text-subtle);
+    display: inline-block;
+    margin-bottom: 20px;
+    font-family: var(--font-mono);
+    transition: color 0.2s;
+  }
+  .article-back:hover { color: var(--accent); }
+  .article-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    font-family: var(--font-mono);
+  }
+  .article-meta {
+    font-size: 12px;
+    color: var(--text-subtle);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+  }
+  .article-tags { display: flex; gap: 8px; }
+  .tag { font-size: 10px; border-radius: 3px; padding: 2px 8px; font-family: var(--font-mono); }
+  .tag-tech { color: var(--accent); background: rgba(34, 211, 238, 0.1); }
+  .tag-personal { color: var(--tag-personal); background: rgba(167, 139, 250, 0.1); }
+
+  .article-body {
+    font-family: var(--font-sans);
+  }
+  .article-body :global(p) {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+  }
+  .article-body :global(h2) {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 36px 0 16px;
+    color: var(--text-primary);
+  }
+  .article-body :global(h3) {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: var(--text-primary);
+  }
+  .article-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.12);
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: var(--accent);
+  }
+  .article-body :global(pre) {
+    background: var(--code-bg);
+    border: 1px solid rgba(34, 211, 238, 0.12);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .article-body :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: var(--text-primary);
+  }
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+  .article-body :global(li) {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin-bottom: 4px;
+  }
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 20px 0;
+    background: rgba(34, 211, 238, 0.04);
+    border-radius: 0 6px 6px 0;
+  }
+  .article-body :global(blockquote p) {
+    margin-bottom: 0;
+  }
+  .article-body :global(a) {
+    color: var(--accent);
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+  }
+  .article-body :global(a:hover) {
+    text-decoration: underline;
+  }
+  .article-body :global(strong) {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .article-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(34, 211, 238, 0.1);
+  }
+  .article-nav-link {
+    font-size: 12px;
+    color: var(--text-subtle);
+    font-family: var(--font-mono);
+    transition: color 0.2s;
+  }
+  .article-nav-link:hover { color: var(--accent); }
+  .article-nav-link .nav-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-subtle);
+    margin-bottom: 4px;
+  }
+  .article-nav-link .nav-title { color: var(--text-muted); }
+  .article-nav-link.next { text-align: right; }
+
+  @media (max-width: 640px) {
+    .content { padding: 24px 16px; }
+    .article-title { font-size: 20px; }
+    .article-meta { flex-wrap: wrap; }
+    .article-body :global(p),
+    .article-body :global(li) { font-size: 14px; }
+    .article-body :global(h2) { font-size: 16px; }
+    .article-body :global(pre) { font-size: 12px; padding: 14px; }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import TagFilter from '../../components/TagFilter.astro';
+import { getReadingTime } from '../../utils/reading-time';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<Base title="Blog — Tommy Pham" description="Thoughts on frontend architecture, developer tooling, and life outside of code.">
+  <div class="content">
+    <div class="page-header">
+      <div class="page-title"><span class="slash">//</span> blog</div>
+      <p class="page-desc">Thoughts on frontend architecture, developer tooling, and life outside of code.</p>
+    </div>
+
+    <TagFilter tags={allTags} />
+
+    {posts.map((post) => (
+      <div data-tags={post.data.tags.join(',')}>
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.id}
+          readingTime={getReadingTime(post.body ?? '')}
+        />
+      </div>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .page-header { margin-bottom: 24px; }
+  .page-title {
+    font-size: 18px;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .slash { color: var(--accent); }
+  .page-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 640px) {
+    .content { padding: 24px 16px; }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<div class="tag-filters" id="tag-filters">
+  <button class="tag-filter active" data-tag="all">all</button>
+  {tags.map((tag) => (
+    <button class="tag-filter" data-tag={tag}>{tag}</button>
+  ))}
+</div>
+
+<script>
+  function initTagFilter() {
+    const container = document.getElementById('tag-filters');
+    if (!container) return;
+
+    const buttons = container.querySelectorAll('.tag-filter');
+    const cards = document.querySelectorAll('[data-tags]');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = (btn as HTMLElement).dataset.tag;
+
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        cards.forEach((card) => {
+          const cardTags = (card as HTMLElement).dataset.tags ?? '';
+          if (tag === 'all' || cardTags.includes(tag!)) {
+            (card as HTMLElement).style.display = '';
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  initTagFilter();
+</script>
+
+<style>
+  .tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .tag-filter {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    color: var(--text-muted);
+    background: transparent;
+  }
+  .tag-filter:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    color: var(--text-primary);
+  }
+  .tag-filter.active {
+    color: var(--accent);
+    background: rgba(34, 211, 238, 0.1);
+    border-color: rgba(34, 211, 238, 0.25);
+  }
+</style>
