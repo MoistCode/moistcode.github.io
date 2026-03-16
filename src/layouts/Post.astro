@@ -57,6 +57,33 @@ const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'nu
       </nav>
     )}
   </article>
+
+  <script>
+    // Load Mermaid.js only on pages that have mermaid diagram blocks
+    if (document.querySelector('.mermaid')) {
+      import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+        .then(({ default: mermaid }) => {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+              darkMode: true,
+              background: '#0f172a',
+              primaryColor: '#1e293b',
+              primaryTextColor: '#e2e8f0',
+              primaryBorderColor: '#22d3ee',
+              lineColor: '#22d3ee',
+              secondaryColor: '#0f172a',
+              tertiaryColor: '#1e293b',
+              noteBkgColor: '#1e293b',
+              noteTextColor: '#94a3b8',
+              fontFamily: 'ui-monospace, monospace',
+            },
+          });
+          mermaid.run({ nodes: document.querySelectorAll('.mermaid') });
+        });
+    }
+  </script>
 </Base>
 
 <style>
@@ -150,6 +177,20 @@ const formattedDate = date.toLocaleDateString('en-US', { month: 'long', day: 'nu
     padding: 0;
     font-size: inherit;
     color: var(--text-primary);
+  }
+  .article-body :global(pre.mermaid) {
+    background: var(--code-bg);
+    border: 1px solid rgba(34, 211, 238, 0.12);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .article-body :global(pre.mermaid svg) {
+    max-width: 100%;
+    height: auto;
   }
   .article-body :global(ul),
   .article-body :global(ol) {
