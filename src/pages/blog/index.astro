@@ -11,11 +11,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 
-<Base title="Blog — Tommy Pham" description="Thoughts on frontend architecture, developer tooling, and life outside of code.">
+<Base title="Blog | Tommy Pham" description="Thoughts on architecture, software engineering, developer tooling, and life outside of code.">
   <div class="content">
     <div class="page-header">
       <div class="page-title"><span class="slash">//</span> blog</div>
-      <p class="page-desc">Thoughts on frontend architecture, developer tooling, and life outside of code.</p>
+      <p class="page-desc">Thoughts on architecture, software engineering, developer tooling, and life outside of code.</p>
     </div>
 
     <TagFilter tags={allTags} />
